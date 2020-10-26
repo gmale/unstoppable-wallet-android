@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_balance"
+    app:startDestination="@id/balanceFragment">
+
+    <include app:graph="@navigation/restore_graph" />
+
+    <fragment
+        android:id="@+id/balanceFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.balance.BalanceFragment"
+        tools:layout="@layout/fragment_balance">
+
+        <action
+            android:id="@+id/mainFragment_to_rateChartFragment"
+            app:destination="@id/rateChartFragment" />
+        <action
+            android:id="@+id/mainFragment_to_contactFragment"
+            app:destination="@id/contactFragment1" />
+        <action
+            android:id="@+id/mainFragment_to_backupFragment"
+            app:destination="@id/backupFragment" />
+        <action
+            android:id="@+id/mainFragment_to_swapFragment"
+            app:destination="@id/swapFragment" />
+        <action
+            android:id="@+id/mainFragment_to_manageWalletsFragment"
+            app:destination="@id/manageWalletsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/swapFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.swap.view.SwapFragment"
+        tools:layout="@layout/fragment_swap">
+        <action
+            android:id="@+id/swapFragment_to_selectSwapCoinFragment"
+            app:destination="@id/selectSwapCoinFragment" />
+        <action
+            android:id="@+id/swapFragment_to_swapApproveFragment"
+            app:destination="@id/swapApproveFragment" />
+        <action
+            android:id="@+id/swapFragment_to_swapConfirmationFragment"
+            app:destination="@id/swapConfirmationFragment" />
+        <action
+            android:id="@+id/swapFragment_to_uniswapInfoFragment"
+            app:destination="@id/uniswapInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/selectSwapCoinFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.swap.coinselect.SelectSwapCoinFragment"
+        tools:layout="@layout/fragment_swap_select_token" />
+    <fragment
+        android:id="@+id/swapApproveFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.swap.approve.SwapApproveFragment"
+        tools:layout="@layout/fragment_swap_approve" />
+    <fragment
+        android:id="@+id/swapConfirmationFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.swap.confirmation.SwapConfirmationFragment"
+        tools:layout="@layout/fragment_confirmation_swap" />
+    <fragment
+        android:id="@+id/uniswapInfoFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.swap.view.UniswapInfoFragment"
+        tools:layout="@layout/fragment_swap_info" />
+
+    <fragment
+        android:id="@+id/manageWalletsFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.managewallets.view.ManageWalletsFragment"
+        tools:layout="@layout/manage_wallets_fragment">
+        <action
+            android:id="@+id/manageWalletsFragment_to_restoreFragment"
+            app:destination="@id/restore_graph" />
+        <action
+            android:id="@+id/manageWalletsFragment_to_addErc20Token"
+            app:destination="@id/addErc20TokenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addErc20TokenFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.addErc20token.AddErc20TokenFragment"
+        tools:layout="@layout/fragment_add_erc20_token" />
+
+    <fragment
+        android:id="@+id/rateChartFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.ratechart.RateChartFragment"
+        tools:layout="@layout/fragment_rate_chart" />
+
+    <fragment
+        android:id="@+id/contactFragment1"
+        android:name="io.horizontalsystems.bankwallet.modules.settings.contact.ContactFragment"
+        tools:layout="@layout/fragment_contact" />
+
+
+</navigation>

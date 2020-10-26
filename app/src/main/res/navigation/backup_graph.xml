@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backup_graph"
+    app:startDestination="@id/backupFragment">
+
+    <fragment
+        android:id="@+id/backupFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.backup.BackupFragment"
+        tools:layout="@layout/fragment_backup">
+        <action
+            android:id="@+id/backupFragment_to_backupWordsFragment"
+            app:destination="@id/backupWordsFragment" />
+        <action
+            android:id="@+id/backupFragment_to_backupEosFragment"
+            app:destination="@id/backupEosFragment" />
+        <action
+            android:id="@+id/backupFragment_to_pinFragment"
+            app:destination="@id/pinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/backupWordsFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.backup.words.BackupWordsFragment"
+        tools:layout="@layout/fragment_backup_words" />
+    <fragment
+        android:id="@+id/backupEosFragment"
+        android:name="io.horizontalsystems.bankwallet.modules.backup.eos.BackupEosFragment"
+        tools:layout="@layout/fragment_backup_eos" />
+    <fragment
+        android:id="@+id/pinFragment"
+        android:name="io.horizontalsystems.pin.PinFragment"
+        tools:layout="@layout/fragment_pin" />
+</navigation>

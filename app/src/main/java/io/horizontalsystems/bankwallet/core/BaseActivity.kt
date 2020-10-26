@@ -12,7 +12,7 @@ import io.horizontalsystems.core.CoreActivity
 import io.horizontalsystems.core.hideKeyboard
 import io.horizontalsystems.views.AlertDialogFragment
 
-abstract class BaseActivity : CoreActivity(), NavController.OnDestinationChangedListener {
+abstract class BaseActivity : CoreActivity() {
 
     fun showCustomKeyboardAlert() {
         AlertDialogFragment.newInstance(
@@ -45,11 +45,5 @@ abstract class BaseActivity : CoreActivity(), NavController.OnDestinationChanged
 
     protected fun hideSoftKeyboard() {
         getSystemService(InputMethodManager::class.java)?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-    }
-
-    // NavController Listener
-
-    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        currentFocus?.hideKeyboard(this)
     }
 }
