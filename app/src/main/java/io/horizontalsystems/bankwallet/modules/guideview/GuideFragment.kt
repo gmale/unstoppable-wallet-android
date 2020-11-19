@@ -24,9 +24,7 @@ class GuideFragment : BaseFragment(), GuideContentAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setNavigationToolbar(toolbar, findNavController())
-        toolbar.title = ""
+        setSupportActionBar(toolbar, true, "")
 
         rvBlocks.adapter = contentAdapter
 
