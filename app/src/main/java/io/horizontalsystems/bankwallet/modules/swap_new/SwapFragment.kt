@@ -1,7 +1,6 @@
 package io.horizontalsystems.bankwallet.modules.swap_new
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -9,22 +8,26 @@ import androidx.navigation.navGraphViewModels
 import io.horizontalsystems.bankwallet.R
 import io.horizontalsystems.bankwallet.core.BaseFragment
 import io.horizontalsystems.bankwallet.core.ethereum.EthereumFeeViewModel
-import io.horizontalsystems.bankwallet.modules.swap_new.viewmodels.SwapViewModel
+import io.horizontalsystems.bankwallet.modules.swap_new.viewmodels.SwapFromCoinCardViewModel
+import io.horizontalsystems.bankwallet.modules.swap_new.viewmodels.SwapToCoinCardViewModel
 import io.horizontalsystems.core.findNavController
 import io.horizontalsystems.snackbar.CustomSnackbar
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.fragment_swap.*
+import kotlinx.android.synthetic.main.fragment_swap.allowanceGroup
+import kotlinx.android.synthetic.main.fragment_swap.allowanceValue
+import kotlinx.android.synthetic.main.fragment_swap.toolbar
+import kotlinx.android.synthetic.main.fragment_swap_new.*
 
 class SwapFragment : BaseFragment() {
 
     private val vmFactory by lazy { SwapModule.Factory(requireArguments().getParcelable(fromCoinKey)!!) }
-    private val viewModel by navGraphViewModels<SwapViewModel>(R.id.swapFragment) { vmFactory }
+    private val fromCoinCardViewModel by navGraphViewModels<SwapFromCoinCardViewModel>(R.id.swapFragment) { vmFactory }
+    private val toCoinCardViewModel by navGraphViewModels<SwapToCoinCardViewModel>(R.id.swapFragment) { vmFactory }
     private val feeViewModel by navGraphViewModels<EthereumFeeViewModel>(R.id.swapFragment) { vmFactory }
 
     private var approvingSnackBar: CustomSnackbar? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_swap, container, false)
+        return inflater.inflate(R.layout.fragment_swap_new, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +36,9 @@ class SwapFragment : BaseFragment() {
         setHasOptionsMenu(true)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+
+        fromCoinCard.initialize(fromCoinCardViewModel, this, viewLifecycleOwner)
+        toCoinCard.initialize(toCoinCardViewModel, this, viewLifecycleOwner)
 
 //        youPay.apply {
 //            onSelectTokenButtonClick {
@@ -324,10 +330,6 @@ class SwapFragment : BaseFragment() {
           }
       }*/
 
-    @Parcelize
-    enum class SelectType : Parcelable {
-        FromCoin, ToCoin
-    }
 
     companion object {
         const val fromCoinKey = "fromCoinKey"
