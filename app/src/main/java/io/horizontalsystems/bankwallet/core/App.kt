@@ -6,6 +6,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
+
+import cash.z.ecc.android.sdk.ext.TroubleshootingTwig
+import cash.z.ecc.android.sdk.ext.Twig
+import cash.z.ecc.android.sdk.ext.twig
 import io.horizontalsystems.bankwallet.BuildConfig
 import io.horizontalsystems.bankwallet.core.factories.AccountFactory
 import io.horizontalsystems.bankwallet.core.factories.AdapterFactory
@@ -137,6 +141,7 @@ class App : CoreApp() {
         restoreSettingsStorage = RestoreSettingsStorage(appDatabase)
 
         AppLog.logsDao = appDatabase.logsDao()
+        initZcashTinyLogs()
 
         coinManager = CoinManager(coinKit, appConfigProvider)
 
@@ -239,6 +244,20 @@ class App : CoreApp() {
         startTasks()
 
         NotificationWorker.startPeriodicWorker(instance)
+    }
+
+    // Example of how to enable Zcash SDK tiny logging (twig) in debuggable builds
+    private fun initZcashTinyLogs() {
+        // logs are off by default. Turn them on if the build is debuggable
+        if (BuildConfig.DEBUG) {
+            val consoleLog = TroubleshootingTwig() // log to logcat w/ default settings
+            val databaseLog = TroubleshootingTwig( // OR redirect the same logs to the database, instead
+                printer = { message -> AppLog.info("zcash:sdk", message) },
+                formatter = { message -> "Zcash: $message" }
+            )
+            Twig.plant(consoleLog + databaseLog)
+            twig("Tiny logs are now active. Use twig(msg) to print something quickly")
+        }
     }
 
     private fun setAppTheme() {
